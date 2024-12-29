@@ -1,6 +1,11 @@
 package com.saheed.JobApp.company;
 
+import com.saheed.JobApp.jobs.Job;
+//import com.saheed.JobApp.reviews.Review;
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
+
+import java.util.List;
 
 @Entity
 @Table(name = "CompanyTable")
@@ -17,6 +22,13 @@ public class Company {
     private String email;
     private String phoneNumber;
     private String websiteUrl;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
+    private List<Job> job;
+
+//    @OneToMany(mappedBy = "reviews")
+//    private List<Review> reviews;
 
     public Company() {
     }

@@ -1,5 +1,6 @@
 package com.saheed.JobApp.jobs;
 
+import com.saheed.JobApp.company.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,17 @@ public class Job {
     private  String minSalary;
     private  String maxSalary;
     private  String location;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @ManyToOne
+    private Company company;
 
 //Generate Consructor
 // default no argument constructor for jpa to instatiate entity object

@@ -6,6 +6,7 @@ import com.saheed.JobApp.company.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyImplementation implements CompanyService {
@@ -14,8 +15,10 @@ public class CompanyImplementation implements CompanyService {
     public CompanyImplementation(CompanyRepository companyRepository){
         this.companyRepository =companyRepository;
     }
+
+
     @Override
-    public List<Company> findAll() {
+    public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
 
@@ -39,4 +42,22 @@ public class CompanyImplementation implements CompanyService {
             return false;
         }
     }
-}
+
+    @Override
+    public Boolean updateCompany(Long id, Company updatedCompany) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
+            if(companyOptional.isPresent()) {
+                Company company = companyOptional.get();
+                company.setCompanyName(updatedCompany.getCompanyName());
+                company.setCompanyAddress(updatedCompany.getCompanyAddress());
+                company.setCountry(updatedCompany.getCountry());
+                company.setState(updatedCompany.getState());
+                company.setEmail(updatedCompany.getEmail());
+                company.setPhoneNumber(updatedCompany.getPhoneNumber());
+                company.setWebsiteUrl(updatedCompany.getWebsiteUrl());
+                companyRepository.save(company);
+                return true;
+            }return false;
+            }
+    }
+

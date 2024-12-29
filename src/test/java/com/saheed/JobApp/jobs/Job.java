@@ -2,6 +2,7 @@ package com.saheed.JobApp.jobs;
 
 import com.saheed.JobApp.company.Company;
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "JobTable")
@@ -23,7 +24,7 @@ public class Job {
     public void setCompany(Company company) {
         this.company = company;
     }
-
+    @JsonIgnore
     @ManyToOne
     private Company company;
 

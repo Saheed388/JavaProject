@@ -2,6 +2,7 @@ package com.saheed.JobApp.company;
 
 import com.saheed.JobApp.jobs.Job;
 //import com.saheed.JobApp.reviews.Review;
+import com.saheed.JobApp.reviews.Review;
 import jakarta.persistence.*;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -27,10 +28,19 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Job> job;
 
-//    @OneToMany(mappedBy = "reviews")
-//    private List<Review> reviews;
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
 
     public Company() {
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public Long getId() {

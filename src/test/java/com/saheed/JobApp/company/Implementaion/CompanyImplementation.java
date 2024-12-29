@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class CompanyImplementation implements CompanyService {
-    CompanyRepository companyRepository;
+   private final CompanyRepository companyRepository;
 
     public CompanyImplementation(CompanyRepository companyRepository){
         this.companyRepository =companyRepository;

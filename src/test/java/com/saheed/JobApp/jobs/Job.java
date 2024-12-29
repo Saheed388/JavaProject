@@ -1,7 +1,13 @@
 package com.saheed.JobApp.jobs;
 
-public class Job {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "JobTable")
+
+public class Job {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //used to generate unique id
     private  Long id;
     private  String title;
     private  String description;
@@ -10,6 +16,9 @@ public class Job {
     private  String location;
 
 //Generate Consructor
+// default no argument constructor for jpa to instatiate entity object
+    public Job() {
+    }
 
     public Job(Long id, String title,
                String description,

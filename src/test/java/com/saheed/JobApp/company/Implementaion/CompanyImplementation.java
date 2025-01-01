@@ -3,6 +3,7 @@ package com.saheed.JobApp.company.Implementaion;
 import com.saheed.JobApp.company.Company;
 import com.saheed.JobApp.company.CompanyRepository;
 import com.saheed.JobApp.company.CompanyService;
+import com.saheed.JobApp.jobs.Job;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.Optional;
 
 @Service
 public class CompanyImplementation implements CompanyService {
-   private final CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
 
-    public CompanyImplementation(CompanyRepository companyRepository){
-        this.companyRepository =companyRepository;
+    public CompanyImplementation(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
     }
 
 
@@ -23,41 +24,45 @@ public class CompanyImplementation implements CompanyService {
     }
 
     @Override
+    public boolean updateCompany(Company company, Long id) {
+
+        Optional<Company> companyOptional = companyRepository.findById(id);
+        if (companyOptional.isPresent()) {
+            Company companyToUpdate = companyOptional.get();
+            companyToUpdate.setCompanyName(company.getCompanyName());
+            companyToUpdate.setDescription(company.getDescription());
+            companyToUpdate.setDescription(company.getDescription());
+            companyToUpdate.setJobs(company.getJobs());
+            companyRepository.save(companyToUpdate);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void createCompany(Company company) {
         companyRepository.save(company);
 
     }
 
     @Override
-    public Company getCompanyById(Long id) {
-        return companyRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public boolean deleteCompanyById(Long id) {
-        try{
+        if(companyRepository.existsById(id)){
             companyRepository.deleteById(id);
             return true;
-        }catch (Exception e){
+        }else
             return false;
+        }
+
+    @Override
+    public Company getCompanyById(Long id) {
+            return companyRepository.findById(id).orElse(null);
         }
     }
 
-    @Override
-    public Boolean updateCompany(Long id, Company updatedCompany) {
-        Optional<Company> companyOptional = companyRepository.findById(id);
-            if(companyOptional.isPresent()) {
-                Company company = companyOptional.get();
-                company.setCompanyName(updatedCompany.getCompanyName());
-                company.setCompanyAddress(updatedCompany.getCompanyAddress());
-                company.setCountry(updatedCompany.getCountry());
-                company.setState(updatedCompany.getState());
-                company.setEmail(updatedCompany.getEmail());
-                company.setPhoneNumber(updatedCompany.getPhoneNumber());
-                company.setWebsiteUrl(updatedCompany.getWebsiteUrl());
-                companyRepository.save(company);
-                return true;
-            }return false;
-            }
-    }
+
+
+
+
 

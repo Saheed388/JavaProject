@@ -5,11 +5,12 @@ import java.util.List;
 public interface CompanyService {
     List<Company> getAllCompanies();
 
-    void createCompany(Company company);
+    boolean updateCompany(Company company, Long id);
 
-    Company getCompanyById(Long id);
+    void  createCompany( Company company);
 
     boolean deleteCompanyById(Long id);
 
-    Boolean updateCompany(Long id, Company updatedCompany);
+    Company getCompanyById(Long id);
+//
 }

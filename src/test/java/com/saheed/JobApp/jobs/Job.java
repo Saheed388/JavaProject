@@ -17,6 +17,10 @@ public class Job {
     private  String maxSalary;
     private  String location;
 
+    @JsonIgnore
+    @ManyToOne
+    private  Company company;
+
     public Company getCompany() {
         return company;
     }
@@ -24,16 +28,15 @@ public class Job {
     public void setCompany(Company company) {
         this.company = company;
     }
-    @JsonIgnore
-    @ManyToOne
-    private Company company;
+
 
 //Generate Consructor
 // default no argument constructor for jpa to instatiate entity object
     public Job() {
     }
 
-    public Job(Long id, String title,
+    public Job(Long id,
+               String title,
                String description,
                String minSalary,
                String maxSalary,
